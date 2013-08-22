@@ -11,20 +11,6 @@
 
 define('SYNTAX_ELEMENTS_PATTERN', '/Ook[\.\?\!]/');
 
-function ook_syntax_elements_to_ook($syntaxElements)
-{
-    switch ($syntaxElements[3] . $syntaxElements[7]) {
-        case '.?': return 1;
-        case '?.': return 2;
-        case '..': return 3;
-        case '!!': return 4;
-        case '.!': return 5;
-        case '!.': return 6;
-        case '!?': return 7;
-        case '?!': return 8;
-    }
-}
-
 $file = $argv[1];
 if ( ! is_file($file)) {
     fputs(STDERR, "No such file -- {$file}\n");
@@ -39,12 +25,22 @@ if (count($matches) % 2 != 0) {
     fputs(STDERR, "{$file}: Syntax error: expected Ook., Ook?, or Ook!\n");
     exit(1);
 }
+$ookSyntaxElementsToOokMap = array(
+    '.?' => 1,
+    '?.' => 2,
+    '..' => 3,
+    '!!' => 4,
+    '.!' => 5,
+    '!.' => 6,
+    '!?' => 7,
+    '?!' => 8,
+);
 $ooks = array();
 $ookJumpStack = array();
 // A map of ook index to ook index to jump to.
 $ookJumps = array();
 for ($i = 0, $j = 0, $length = count($matches); $i < $length; $i += 2, ++$j) {
-    $ook = ook_syntax_elements_to_ook($matches[$i][0] . $matches[$i + 1][0]);
+    $ook = $ookSyntaxElementsToOokMap[$matches[$i][0][3] . $matches[$i + 1][0][3]];
     $ooks[$j] = $ook;
     if (7 == $ook) {
         array_push($ookJumpStack, $j);
