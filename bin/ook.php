@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of the ook-php project and is copyright
- *
- * (c) 2013 Sam Smith <samuel.david.smith@gmail.com>.
- *
- * Please refer the to LICENSE file that was distributed with this source code
- * for the full copyright and license information.
- */
-
 define('SYNTAX_ELEMENTS_PATTERN', '/Ook[\.\?\!]/');
 
 $file = $argv[1];

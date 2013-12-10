@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of the ook-php project and is copyright
- *
- * (c) 2013 Sam Smith <samuel.david.smith@gmail.com>.
- *
- * Please refer the to LICENSE file that was distributed with this source code
- * for the full copyright and license information.
- */
-
 use Symfony\Component\Process\Process;
 
 class OokPhpTest extends PHPUnit_Framework_TestCase
