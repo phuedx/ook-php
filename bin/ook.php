@@ -2,6 +2,10 @@
 
 define('SYNTAX_ELEMENTS_PATTERN', '/Ook[\.\?\!]/');
 
+if ( ! isset($argv[1])) {
+    fputs(STDERR, 'usage: php ook.php <file>');
+    exit(1);
+}
 $file = $argv[1];
 if ( ! is_file($file)) {
     fputs(STDERR, "No such file -- {$file}\n");

@@ -71,10 +71,20 @@ class OokPhpTest extends PHPUnit_Framework_TestCase
         $this->assertRegExp('/^.*\: Syntax error\: unexpected Ook\? Ook\!$/', $process->getErrorOutput());
     }
 
-    private function runOokPhp($file)
+    public function test_it_should_message_the_user_when_the_file_isnt_given()
+    {
+        $process = $this->runOokPhp();
+        $this->assertEquals('usage: php ook.php <file>', $process->getErrorOutput());
+    }
+
+    private function runOokPhp($file = null)
     {
         $dir = __DIR__;
-        $process = new Process("/usr/bin/env php {$dir}/../bin/ook.php {$dir}/{$file}");
+        $commandline = "/usr/bin/env php {$dir}/../bin/ook.php";
+        if ($file) {
+            $commandline .= " {$dir}/{$file}";
+        }
+        $process = new Process($commandline);
         $process->run();
         return $process;
     }
